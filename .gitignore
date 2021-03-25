@@ -1,0 +1,46 @@
+# Compiled class file
+*.class
+*.pyc
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.war
+*.ear
+*.tar.gz
+
+*.gz
+*.log
+*.rar
+#*.jar
+.classpath
+.settings/
+.project
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+target	
+.idea
+.vscode
+*.iml
+icb-api.iws
+icb-api.ipr
+.DS_Store
+.classpath
+.setting/
+keys
+
+.classpath
+.project
+.settings/
+build
+target
+
