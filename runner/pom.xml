@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>runner</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.local.repo>http://10.150.36.211:8081/repository/dev-payment/</maven.local.repo>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <common.version>1.0.1</common.version>
+        <slf4j.log4j.version>2.12.1</slf4j.log4j.version>
+        <central.configuration.version>1.0.1</central.configuration.version>
+        <postgres.local>1.0.1</postgres.local>
+        <postgres.local>42.2.18</postgres.local>
+        <jdbc.local>5.3.4</jdbc.local>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.fts.common.configuration</groupId>
+            <artifactId>sdk</artifactId>
+            <version>${central.configuration.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${jdbc.local}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgres.local}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fts.common.api</groupId>
+            <artifactId>api-server</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fts.common.api</groupId>
+            <artifactId>api-client</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${slf4j.log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+            <version>${slf4j.log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.inspire.lab</groupId>
+            <artifactId>kafka</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <!--<url>https://mvnrepo.intercoinx.pro/repository/maven-snapshots/</url>-->
+            <url>${maven.local.repo}</url>
+        </repository>
+    </repositories>
+
+</project>
