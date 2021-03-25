@@ -1,6 +1,0 @@
-com/inspirelab/broker/KafkaConsumerConfig.class
-com/inspirelab/config/KafkaConfig.class
-com/inspirelab/config/KafkaConfig$MessageListener.class
-com/inspirelab/broker/KafkaConstant.class
-com/inspirelab/config/KafkaConfig$MessageProducer.class
-com/inspirelab/broker/KafkaProducerConfig.class
