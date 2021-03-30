@@ -1,27 +1,21 @@
 package com.fts.training.dao.impl;
 
-import com.fts.icb.common.ioc.SpringApplicationContext;
-import com.fts.training.config.SpringJdbcConfig;
+import com.fts.dbservice.sdk.exception.DBClusterException;
 import com.fts.training.dao.UserProfileDao;
 import com.fts.training.entity.UserProfile;
+import com.fts.training.exception.InValidUserProfile;
+import com.fts.training.exception.UserRequestNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-@Component
+
 public class UserProfileDaoImpl implements UserProfileDao {
     @Autowired
-    private List<UserProfile> userProfiles;
-
-
-    @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    private List<UserProfile> userProfiles;
 
     public List<UserProfile> getUserProfiles() {
         return userProfiles;
@@ -40,9 +34,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
     }
 
 
-
-
-    public boolean create(UserProfile userProfile) throws Exception {
+    public boolean create(UserProfile userProfile) throws DBClusterException, UserRequestNotFoundException, InValidUserProfile {
 
 
         String sql = "SELECT name FROM userprofile WHERE id = ?";
@@ -56,7 +48,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
         return true;
     }
 
-    public boolean update(UserProfile userProfile) throws Exception {
+    public boolean update(UserProfile userProfile) throws DBClusterException, UserRequestNotFoundException, InValidUserProfile {
         String sql = "SELECT name FROM userprofile WHERE id = ?";
         if (jdbcTemplate.query(sql, new Object[]{userProfile.getId()}, (rs, rowNum) -> rs.getString("name")).size() == 0)
             return false;

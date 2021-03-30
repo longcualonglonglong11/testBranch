@@ -19,10 +19,13 @@
             <PatternLayout
                     pattern="%d [%t] [%X{traceId}/%X{spanId}] %-5level %logger{36} - %msg%n%throwable"/>
         </Console>
-        <RollingFile name="RollingFile" filename="${LOG_FILE}.json.log" filePattern="${LOG_FILE}.json.%d{yyyy-MM-dd}.gz">
+        <RollingFile name="RollingFile" filename="${LOG_FILE}.json.log"
+                     filePattern="${LOG_FILE}.json.%d{yyyy-MM-dd}.gz">
             <PatternLayout>
                 <Pattern>
-                    {"marker":"%marker","date":"%date","severity": "%5level","service": "${service_name:-}","trace": "%X{traceId}","span": "%X{spanId}","parent": "%X{parentId}", "pid": "%X{pid}", "thread": "%thread", "class": "%logger{40}", "rest": "%enc{%m}{JSON}", "throwable" : "%enc{%throwable}{JSON}"}%n
+                    {"marker":"%marker","date":"%date","severity": "%5level","service": "${service_name:-}","trace":
+                    "%X{traceId}","span": "%X{spanId}","parent": "%X{parentId}", "pid": "%X{pid}", "thread": "%thread",
+                    "class": "%logger{40}", "rest": "%enc{%m}{JSON}", "throwable" : "%enc{%throwable}{JSON}"}%n
                 </Pattern>
             </PatternLayout>
             <!--            <MarkerFilter marker="EMERGENCY" onMatch="ACCEPT"-->
@@ -31,9 +34,10 @@
                 <CronTriggeringPolicy schedule="0 0 * * * ?"/>
                 <SizeBasedTriggeringPolicy size="50 MB"/>
             </Policies>
-            <DefaultRolloverStrategy max="5" />
+            <DefaultRolloverStrategy max="5"/>
         </RollingFile>
-        <RollingFile name="MetricsRollingFile" filename="${LOG_FILE}.metrics.log" filePattern="${LOG_FILE}.metrics.%d{yyyy-MM-dd}.gz">
+        <RollingFile name="MetricsRollingFile" filename="${LOG_FILE}.metrics.log"
+                     filePattern="${LOG_FILE}.metrics.%d{yyyy-MM-dd}.gz">
             <PatternLayout>
                 <Pattern>
                     %message%n
@@ -43,13 +47,14 @@
                 <CronTriggeringPolicy schedule="0 0 * * * ?"/>
                 <SizeBasedTriggeringPolicy size="50 MB"/>
             </Policies>
-            <DefaultRolloverStrategy max="5" />
+            <DefaultRolloverStrategy max="5"/>
         </RollingFile>
         <Console name="Console-Appender" target="SYSTEM_OUT">
             <PatternLayout
                     pattern="%d [%t] %-5level %logger{36} - %msg%n%throwable"/>
         </Console>
-        <RollingFile name="TracingRollingFile" filename="${LOG_FILE}.tracing.log" filePattern="${LOG_FILE}.tracing.%d{yyyy-MM-dd}.gz">
+        <RollingFile name="TracingRollingFile" filename="${LOG_FILE}.tracing.log"
+                     filePattern="${LOG_FILE}.tracing.%d{yyyy-MM-dd}.gz">
             <PatternLayout>
                 <Pattern>
                     %m%n
@@ -59,7 +64,7 @@
                 <CronTriggeringPolicy schedule="0 0 * * * ?"/>
                 <SizeBasedTriggeringPolicy size="50 MB"/>
             </Policies>
-            <DefaultRolloverStrategy max="5" />
+            <DefaultRolloverStrategy max="5"/>
         </RollingFile>
     </Appenders>
     <Loggers>

@@ -1,11 +1,11 @@
 package com.inspire.lab.config;
 
+import com.inspire.lab.request.UserRequest;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
@@ -21,7 +21,7 @@ public class KafkaProducerConfig {
 
 
     @Bean
-    public ProducerFactory<String, ?> producerFactory(
+    public ProducerFactory<String, UserRequest> producerFactory(
             @Value("${spring.kafka.producer.bootstrap-servers:localhost:9092}")
                     String bootstrapServers,
             @Value("${spring.kafka.producer.acks:all}")
@@ -35,7 +35,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, ?> kafkaTemplate(ProducerFactory producerFactory) {
+    public KafkaTemplate<String, UserRequest> kafkaTemplate(ProducerFactory producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 

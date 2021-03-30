@@ -18,7 +18,7 @@ public class Main {
         InitConfiguration initConfiguration = new InitConfiguration();
 
         initConfiguration.setConfigurationAnnotation(
-              KafkaConfig.class
+                KafkaConfig.class
         );
         AnnotationConfigApplicationContext context = initConfiguration.getContext();
         context.refresh();

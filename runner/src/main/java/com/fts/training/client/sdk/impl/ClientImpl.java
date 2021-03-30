@@ -1,9 +1,11 @@
 package com.fts.training.client.sdk.impl;
 
-import com.fts.training.client.sdk.Client;
 import com.fts.common.api.client.service.AbstractService;
 import com.fts.common.api.common.payload.data.DataResponse;
+import com.fts.training.client.sdk.Client;
 import com.fts.training.dto.*;
+import com.inspire.lab.request.UserRequest;
+import com.inspire.lab.request.UserResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +19,7 @@ public class ClientImpl extends AbstractService implements Client {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientImpl.class);
 
     public ClientImpl(String host, int port, Long appId, String appSecret, Boolean enableSSL) {
-        super(host, port, 10*60*1000, appSecret, enableSSL);
+        super(host, port, 10 * 60 * 1000, appSecret, enableSSL);
     }
 
     public DataResponse<RepResponse> callGrpcTest(String message) {
@@ -42,29 +44,27 @@ public class ClientImpl extends AbstractService implements Client {
     }
 
     @Override
-    public DataResponse<RepResponse> callGrpcCreate(String message) {
+    public DataResponse<UserResponse> callGrpcCreate(UserRequest message) {
         long start = System.currentTimeMillis();
         try {
-            TestRepRequest repRequest = new TestRepRequest(message);
-            return client.sendRequest(UUID.randomUUID().toString(), MethodConstant.METHOD_TEST_GRPC_CREATE, repRequest);
+            return client.sendRequest(UUID.randomUUID().toString(), MethodConstant.METHOD_TEST_GRPC_CREATE, message);
         } finally {
             System.out.println("Request time : " + (System.currentTimeMillis() - start));
         }
     }
 
     @Override
-    public DataResponse<RepResponse> callGrpcUpdate(String message) {
+    public DataResponse<UserResponse> callGrpcUpdate(UserRequest message) {
         long start = System.currentTimeMillis();
         try {
-            TestRepRequest repRequest = new TestRepRequest(message);
-            return client.sendRequest(UUID.randomUUID().toString(), MethodConstant.METHOD_TEST_GRPC_UPDATE, repRequest);
+            return client.sendRequest(UUID.randomUUID().toString(), MethodConstant.METHOD_TEST_GRPC_UPDATE, message);
         } finally {
             System.out.println("Request time : " + (System.currentTimeMillis() - start));
         }
     }
 
     @Override
-    public DataResponse<RepResponse> callGrpcFindById(String message) {
+    public DataResponse<UserResponse> callGrpcFindById(String message) {
         long start = System.currentTimeMillis();
         try {
             TestRepRequest repRequest = new TestRepRequest(message);
@@ -110,7 +110,7 @@ public class ClientImpl extends AbstractService implements Client {
         long start = System.currentTimeMillis();
         try {
             TestRepRequest repRequest = new TestRepRequest(message);
-            return client.sendRequest(UUID.randomUUID().toString(), MethodConstant.METHOD_TEST_GET_TIMEOUT, repRequest, new HashMap<String, String>(){{
+            return client.sendRequest(UUID.randomUUID().toString(), MethodConstant.METHOD_TEST_GET_TIMEOUT, repRequest, new HashMap<String, String>() {{
                 put("message", message);
             }}, "callGrpcTestTimeout");
         } finally {

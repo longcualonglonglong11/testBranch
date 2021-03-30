@@ -3,20 +3,11 @@ package com.fts.training.server;
 import com.fts.common.api.server.CommonServer;
 import com.fts.common.configuration.sdk.config.InitConfiguration;
 import com.fts.icb.common.ioc.SpringApplicationContext;
-//import com.fts.training.config.Listener;
-
 import com.fts.training.config.AppConfig;
-import com.fts.training.config.SpringJdbcConfig;
-import com.fts.training.service.UserProfileService;
-import com.inspire.lab.config.KafkaConfig;
-import org.omg.CORBA.Request;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.fts.training.server.handler.ExceptionsHandler;
-import com.fts.training.server.handler.ServiceHandler;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.fts.training.server.handler.UserProfileHandler;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.util.concurrent.TimeUnit;
 
 public class Runner {
@@ -27,10 +18,8 @@ public class Runner {
         InitConfiguration initConfiguration = new InitConfiguration();
 
         initConfiguration.setConfigurationAnnotation(
-                KafkaConfig.class,
-                SpringJdbcConfig.class,
-                AppConfig.class
 
+                AppConfig.class
         );
         AnnotationConfigApplicationContext context = initConfiguration.getContext();
         context.refresh();
@@ -41,15 +30,13 @@ public class Runner {
                 90D,
                 base64EncodedJWTPublicKey
         );
-        String[] v = context.getBeanDefinitionNames();
-
-        ServiceHandler a = SpringApplicationContext.getBean(ServiceHandler.class);
-        commonServer.register(a);
+        UserProfileHandler tmp = SpringApplicationContext.getBean(UserProfileHandler.class);
+        commonServer.register(tmp);
 
         commonServer.register(new ExceptionsHandler());
         commonServer.initServlet(8080, 6, 1, TimeUnit.MINUTES);
         commonServer.initGrpc(8090, false, 6, 1, TimeUnit.MINUTES);
         commonServer.startServer();
-        a.findAll(null);
+
     }
 }

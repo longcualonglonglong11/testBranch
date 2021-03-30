@@ -16,11 +16,11 @@ public class SpringJdbcConfig {
 
     @Bean
     public DataSource dataSource(@Value("${spring.jdbc.url:jdbc:postgresql://0.0.0.0:5432/rainbow_database}")
-                                            String url,
-                                    @Value("${spring.jdbc.username:unicorn_user}")
-                                            String username,
-                                    @Value("${spring.jdbc.password:magical_password}")
-                                            String password
+                                         String url,
+                                 @Value("${spring.jdbc.username:unicorn_user}")
+                                         String username,
+                                 @Value("${spring.jdbc.password:magical_password}")
+                                         String password
     ) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(url);
@@ -28,8 +28,9 @@ public class SpringJdbcConfig {
         dataSource.setPassword(password);
         return dataSource;
     }
+
     @Bean
-    JdbcTemplate jdbcTemplate(DataSource dataSource){
+    JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
