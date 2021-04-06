@@ -1,5 +1,7 @@
 package com.fts.training.entity;
 
+import com.fts.training.enums.State;
+
 import java.io.Serializable;
 
 public class UserProfile implements Serializable {
@@ -7,6 +9,7 @@ public class UserProfile implements Serializable {
     String name;
     String email;
     String phone;
+    private State state;
 
     public UserProfile(long id, String name, String email, String phone) {
         this.id = id;
@@ -23,6 +26,11 @@ public class UserProfile implements Serializable {
     public UserProfile(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public UserProfile(Long id, State state) {
+        this.id = id;
+        this.state = state;
     }
 
     public long getId() {
@@ -65,5 +73,13 @@ public class UserProfile implements Serializable {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
+    }
+
+    public State getState() {
+        return this.state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

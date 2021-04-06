@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>com.fts</groupId>
     <artifactId>initial-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -14,26 +14,61 @@
         <release.repo>http://{nexus-repository-host}:8081/repository/maven-releases/</release.repo>
         <snapshot.repo>http://{nexus-repository-host}:8081/repository/maven-snapshots/</snapshot.repo>
 
+
+        <maven.local.repo>http://10.150.36.211:8081/repository/dev-payment/</maven.local.repo>
+        <common.version>1.0.1</common.version>
+        <slf4j.log4j.version>2.12.1</slf4j.log4j.version>
+        <central.configuration.version>1.0.1</central.configuration.version>
+        <postgres.local>1.0.1</postgres.local>
+        <postgres.local>42.2.18</postgres.local>
+        <jdbc.local>5.3.4</jdbc.local>
+        <common.cache.version>1.0.0</common.cache.version>
+        <redisson.version>3.8.1</redisson.version>
+        <icb.common.version>1.0.0</icb.common.version>
+        <log4j.version>2.12.1</log4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <spring.version>5.3.4</spring.version>
+        <metrics.jackson.version>2.10.0</metrics.jackson.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <release.repo>http://{nexus-repository-host}:8081/repository/maven-releases/</release.repo>
+        <snapshot.repo>http://{nexus-repository-host}:8081/repository/maven-snapshots/</snapshot.repo>
+
+
+        <maven.local.repo>http://10.150.36.211:8081/repository/dev-payment/</maven.local.repo>
+        <common.version>1.0.1</common.version>
+        <slf4j.log4j.version>2.12.1</slf4j.log4j.version>
+        <central.configuration.version>1.0.1</central.configuration.version>
+        <postgres.local>1.0.1</postgres.local>
+        <postgres.local>42.2.18</postgres.local>
+        <jdbc.local>5.3.4</jdbc.local>
+        <common.cache.version>1.0.0</common.cache.version>
+        <redisson.version>3.8.1</redisson.version>
+        <icb.common.version>1.0.0</icb.common.version>
+        <log4j.version>2.12.1</log4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <spring.version>5.3.4</spring.version>
+        <metrics.jackson.version>2.10.0</metrics.jackson.version>
     </properties>
     <modules>
         <module>runner</module>
         <module>kafka</module>
     </modules>
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <url>${release.repo}</url>
-        </repository>
-        <repository>
-            <id>nexus-snapshot</id>
-            <url>${snapshot.repo}</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>nexus</id>-->
+<!--            <url>${release.repo}</url>-->
+<!--        </repository>-->
+<!--        <repository>-->
+<!--            <id>nexus-snapshot</id>-->
+<!--            <url>${snapshot.repo}</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--                <updatePolicy>always</updatePolicy>-->
+<!--                <checksumPolicy>fail</checksumPolicy>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
     <distributionManagement>
         <repository>
             <id>nexus</id>
@@ -46,6 +81,135 @@
             <url>${snapshot.repo}</url>
         </snapshotRepository>
     </distributionManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fts.icb.common</groupId>
+                <artifactId>genuid</artifactId>
+                <version>${icb.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--        <dependency>-->
+            <!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+            <!--            <artifactId>jackson-core</artifactId>-->
+            <!--            <version>2.5.2</version>-->
+            <!--        </dependency>-->
+
+            <dependency>
+                <groupId>com.fts.common.configuration</groupId>
+                <artifactId>sdk</artifactId>
+                <version>${central.configuration.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${jdbc.local}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgres.local}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fts.icb.common</groupId>
+                <artifactId>cache</artifactId>
+                <version>${common.cache.version}</version>
+
+            </dependency>
+            <dependency>
+                <groupId>com.fts.common.api</groupId>
+                <artifactId>api-server</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fts.common.api</groupId>
+                <artifactId>api-client</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${slf4j.log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-web</artifactId>
+                <version>${slf4j.log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.inspire.lab</groupId>
+                <artifactId>kafka</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+
+
+
+
+
+
+
+
+
+
+
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>2.6.7</version>
+            </dependency>
+            <dependency>
+
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${metrics.jackson.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
